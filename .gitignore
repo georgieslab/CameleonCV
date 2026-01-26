@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Data files (large)
+data/raw/*.csv
+data/processed/*.jsonl
+data/final/*.jsonl
+!data/examples/*.json
+
+# Model files (large)
+*.bin
+*.safetensors
+*.pt
+*.pth
+models/
+
+# Training outputs
+outputs/
+runs/
+wandb/
+lightning_logs/
+
+# Environment
+.env
+.env.local
+*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (landing page)
+node_modules/
+dist/
+.next/
+out/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

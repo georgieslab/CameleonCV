@@ -1,0 +1,53 @@
+[
+  {
+    "example_id": "seed_001_confident",
+    "metadata": {
+      "seed_id": "seed_001",
+      "section_type": "summary",
+      "target_style": "confident",
+      "role_category": "technical",
+      "seniority": "entry-level",
+      "source_type": "synthetic"
+    },
+    "input": {
+      "original_section": "Recent computer science graduate with hands-on experience in full-stack development and a strong foundation in object-oriented programming. Completed a 6-month internship at a mid-sized software company where I contributed to developing internal tools using React and Node.js, reducing manual processing time by approximately 30%. Familiar with Agile methodologies through university capstone project that involved building a mobile app for campus navigation, downloaded by over 500 students. Proficient in Python, JavaScript, and SQL with coursework covering data structures, algorithms, and database design. Looking to join a collaborative tech team where I can continue learning modern development practices and contribute to building user-focused applications.",
+      "job_posting_excerpt": "**Junior Full-Stack Developer**\n\nWe're seeking a Junior Full-Stack Developer to join our product development team building web applications for small business clients. You'll collaborate with senior developers to design and implement new features, participate in code reviews, and help maintain our existing codebase.\n\n**Requirements:**\n- Bachelor's degree in Computer Science or related field\n- Experience with JavaScript frameworks and RESTful APIs\n- Understanding of relational databases and SQL",
+      "instructions": "Rewrite this CV summary in a confident style. Use strong action verbs and direct assertions. Remove hedging language. Lead with outcomes. Preserve all facts exactly."
+    },
+    "target_output": "Full-stack developer with proven impact from day one. Built internal automation tools using React and Node.js during a 6-month software engineering role, cutting manual processing time by 30%. Shipped a mobile navigation app to 500+ campus users as capstone project lead.\n\nCommand Python, JavaScript, and SQL. Execute within Agile frameworks from sprint planning through deployment. Ready to own feature development and accelerate in a fast-moving engineering team."
+  },
+  {
+    "example_id": "seed_001_concise",
+    "metadata": {
+      "seed_id": "seed_001",
+      "section_type": "summary",
+      "target_style": "concise",
+      "role_category": "technical",
+      "seniority": "entry-level",
+      "source_type": "synthetic"
+    },
+    "input": {
+      "original_section": "Recent computer science graduate with hands-on experience in full-stack development and a strong foundation in object-oriented programming. Completed a 6-month internship at a mid-sized software company where I contributed to developing internal tools using React and Node.js, reducing manual processing time by approximately 30%. Familiar with Agile methodologies through university capstone project that involved building a mobile app for campus navigation, downloaded by over 500 students. Proficient in Python, JavaScript, and SQL with coursework covering data structures, algorithms, and database design. Looking to join a collaborative tech team where I can continue learning modern development practices and contribute to building user-focused applications.",
+      "job_posting_excerpt": "**Junior Full-Stack Developer**\n\nWe're seeking a Junior Full-Stack Developer to join our product development team building web applications for small business clients. You'll collaborate with senior developers to design and implement new features, participate in code reviews, and help maintain our existing codebase.\n\n**Requirements:**\n- Bachelor's degree in Computer Science or related field\n- Experience with JavaScript frameworks and RESTful APIs\n- Understanding of relational databases and SQL",
+      "instructions": "Rewrite this CV summary in a concise style. Maximum information density. Cut all filler words. Use telegraphic structure. Preserve all facts exactly."
+    },
+    "target_output": "CS graduate. Full-stack developer.\n\n6-month internship: React, Node.js. Cut processing time 30%.\nCapstone: Mobile app, 500+ users.\n\nSkills: Python, JavaScript, SQL. Agile experience."
+  },
+  {
+    "example_id": "seed_001_playful",
+    "metadata": {
+      "seed_id": "seed_001",
+      "section_type": "summary",
+      "target_style": "playful",
+      "role_category": "technical",
+      "seniority": "entry-level",
+      "source_type": "synthetic"
+    },
+    "input": {
+      "original_section": "Recent computer science graduate with hands-on experience in full-stack development and a strong foundation in object-oriented programming. Completed a 6-month internship at a mid-sized software company where I contributed to developing internal tools using React and Node.js, reducing manual processing time by approximately 30%. Familiar with Agile methodologies through university capstone project that involved building a mobile app for campus navigation, downloaded by over 500 students. Proficient in Python, JavaScript, and SQL with coursework covering data structures, algorithms, and database design. Looking to join a collaborative tech team where I can continue learning modern development practices and contribute to building user-focused applications.",
+      "job_posting_excerpt": "**Junior Full-Stack Developer**\n\nWe're seeking a Junior Full-Stack Developer to join our product development team building web applications for small business clients. You'll collaborate with senior developers to design and implement new features, participate in code reviews, and help maintain our existing codebase.\n\n**Requirements:**\n- Bachelor's degree in Computer Science or related field\n- Experience with JavaScript frameworks and RESTful APIs\n- Understanding of relational databases and SQL",
+      "instructions": "Rewrite this CV summary in a playful style. Use 2-4 functional icons. Include one light, confident moment. First person voice. Preserve all facts exactly. Keep it ATS-safe."
+    },
+    "target_output": "🎓 Fresh CS grad who actually ships code.\n\n🛠 I spent 6 months at a software company building internal tools with React and Node.js — cut processing time by 30% (yes, they measured).\n\n🚀 Built a campus navigation app for my capstone that 500+ students actually downloaded and used.\n\n📊 Python, JavaScript, SQL. Agile workflows. Ready to learn fast and build things people want to use."
+  }
+]
