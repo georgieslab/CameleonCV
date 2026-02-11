@@ -2,17 +2,36 @@
 
 **AI-powered CV transformation that adapts writing style and job relevance.**
 
-Transform any CV section into 5 distinct writing styles while preserving factual accuracy. Built with LoRA fine-tuning on LLaMA 3 8B.
+Transform any CV section into 5 distinct writing styles while preserving factual accuracy. Two-stage pipeline: LoRA fine-tuning for style, Claude API for job relevance.
 
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://cameleonai.eu)
-[![Model](https://img.shields.io/badge/model-LLaMA%203%208B-blue)](https://huggingface.co/meta-llama/Meta-Llama-3-8B)
+[![Model](https://img.shields.io/badge/🤗%20Model-HuggingFace-yellow)](https://huggingface.co/georgieslab/cameleon-cv-lora)
+[![API](https://img.shields.io/badge/API-Modal-purple)](https://modal.com)
 [![Training](https://img.shields.io/badge/training-LoRA-orange)](https://arxiv.org/abs/2106.09685)
 
 ---
 
-## 📊 Results
+## 🎬 Live Demo
 
-Fine-tuned model vs zero-shot baseline, evaluated using LLM-as-judge methodology:
+**Try it now:** [cameleonai.eu](https://cameleonai.eu)
+
+### Example Output (Professional + Job-Tailored)
+
+**Input:**
+> Developed and maintained RESTful APIs serving 50,000+ daily active users. Reduced page load times by 40% through code optimization and caching strategies. Collaborated with the QA team to improve test coverage from 65% to 90%.
+
+**Job Posting:** Senior Backend Engineer at FinTech startup seeking scalable systems, high-traffic APIs, performance optimization...
+
+**Output:**
+> Developed, deployed, and maintained scalable RESTful API architectures serving 50,000+ daily active users in high-performance environments. Engineered performance-critical optimizations reducing page load times by 40% through advanced caching and code efficiency strategies. Collaborated closely with QA team to drive comprehensive testing protocols, systematically increasing test coverage from 65% to 90%, ensuring system reliability and robust technical quality.
+
+✅ All facts preserved · ✅ Job keywords added · ✅ Professional tone applied
+
+---
+
+## 📊 Evaluation Results
+
+Fine-tuned model vs zero-shot baseline using LLM-as-judge methodology:
 
 | Metric | Base Model | Fine-tuned | Improvement |
 |--------|-----------|------------|-------------|
@@ -26,13 +45,13 @@ Fine-tuned model vs zero-shot baseline, evaluated using LLM-as-judge methodology
 <details>
 <summary>📈 Results by Style</summary>
 
-| Style | Base Avg | Fine-tuned Avg | Δ |
-|-------|----------|----------------|---|
-| Professional | 3.2 | 4.1 | +0.9 |
-| Academic | 3.1 | 3.9 | +0.8 |
-| Confident | 3.4 | 4.2 | +0.8 |
-| Concise | 3.5 | 4.3 | +0.8 |
-| Playful | 3.4 | 4.0 | +0.6 |
+| Style | Base Avg | Fine-tuned Avg | Δ | Production Quality |
+|-------|----------|----------------|---|-------------------|
+| Professional | 3.2 | 4.1 | +0.9 | ⭐ Best |
+| Confident | 3.4 | 4.2 | +0.8 | ✅ Good |
+| Academic | 3.1 | 3.9 | +0.8 | ✅ Good |
+| Playful | 3.4 | 4.0 | +0.6 | ⚠️ Variable |
+| Concise | 3.5 | 4.3 | +0.8 | ⚠️ Variable |
 
 </details>
 
@@ -59,30 +78,30 @@ CameleonCV solves this by learning distinct writing patterns and applying them c
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 Stage 1: Style Transformation               │
+│              Stage 1: Style Transformation ✅                │
 │                                                             │
 │   ┌─────────────────────────────────────────────────────┐   │
-│   │           LoRA-adapted LLaMA 3 (8B)                 │   │
+│   │           LoRA-adapted LLaMA 3.1 (8B)               │   │
 │   │                                                     │   │
-│   │   • Pattern learning task                           │   │
+│   │   • Pattern learning task (fine-tuned)              │   │
 │   │   • 5 distinct style transformations                │   │
 │   │   • Trained on 1,050 synthetic examples             │   │
-│   │   • Preserves factual content                       │   │
+│   │   • 4-bit quantization for efficient inference      │   │
 │   └─────────────────────────────────────────────────────┘   │
 │                                                             │
 └─────────────────────────┬───────────────────────────────────┘
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              Stage 2: Job Relevance (Planned)               │
+│              Stage 2: Job Relevance ✅                       │
 │                                                             │
 │   ┌─────────────────────────────────────────────────────┐   │
-│   │                   Claude API                        │   │
+│   │                Claude 3.5 Haiku API                 │   │
 │   │                                                     │   │
-│   │   • Reasoning task                                  │   │
+│   │   • Reasoning task (no training needed)             │   │
 │   │   • Matches skills to job requirements              │   │
-│   │   • Optimizes keyword alignment                     │   │
-│   │   • Preserves style and facts                       │   │
+│   │   • Adds relevant keywords naturally                │   │
+│   │   • Fact verification prevents hallucination        │   │
 │   └─────────────────────────────────────────────────────┘   │
 │                                                             │
 └─────────────────────────┬───────────────────────────────────┘
@@ -96,29 +115,42 @@ CameleonCV solves this by learning distinct writing patterns and applying them c
 
 **Why two stages?**
 - **Style transformation** is a pattern-learning task → benefits from fine-tuning
-- **Job relevance** requires reasoning about requirements → better handled by a general-purpose LLM
+- **Job relevance** requires reasoning about requirements → better handled by general-purpose LLM
+- **Separation of concerns** → can iterate on each independently
 
 ---
 
 ## 🎨 Supported Styles
 
-| Style | Description | Example Signal |
-|-------|-------------|----------------|
-| **Professional** | Polished, business-appropriate, measured confidence | "Spearheaded initiatives..." |
-| **Academic** | Scholarly precision, methodological rigor | "Conducted systematic analysis..." |
-| **Confident** | Bold assertions, outcome-first, strong ownership | "Delivered 40% improvement..." |
-| **Concise** | Maximum impact, minimal words | "Led 8-person team. Cut costs 30%." |
-| **Playful** | Warm, engaging, personality showing | "Built the thing that saved the day 🚀" |
+| Style | Description | Best For | Quality |
+|-------|-------------|----------|---------|
+| **Professional** | Polished, business-appropriate, measured confidence | Corporate roles, consulting | ⭐ Best |
+| **Confident** | Bold assertions, outcome-first, strong ownership | Leadership, sales, startups | ✅ Good |
+| **Academic** | Scholarly precision, methodological rigor | Research, education, grants | ✅ Good |
+| **Playful** | Warm, engaging, personality showing | Creative roles, startups | ⚠️ Variable |
+| **Concise** | Maximum impact, minimal words | Executive summaries | ⚠️ Variable |
+
+**Recommendation:** Use Professional or Confident with a job posting for best results.
 
 ---
 
-## 🔧 Technical Details
+## 🔧 Technical Stack
+
+### Deployment
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Model Hosting** | Modal.com (A10G GPU) | LoRA inference with 4-bit quantization |
+| **Job Relevance** | Claude 3.5 Haiku API | Reasoning + fact verification |
+| **Frontend** | React + Vite | Interactive demo |
+| **Hosting** | Vercel | Landing page at cameleonai.eu |
+| **Model Registry** | HuggingFace Hub | LoRA adapter storage |
 
 ### Training Configuration
 
 | Parameter | Value |
 |-----------|-------|
-| Base Model | LLaMA 3 8B (4-bit quantized) |
+| Base Model | LLaMA 3.1 8B Instruct (4-bit quantized) |
 | Fine-tuning Method | LoRA (Low-Rank Adaptation) |
 | LoRA Rank | 16 |
 | LoRA Alpha | 32 |
@@ -143,22 +175,26 @@ CameleonCV solves this by learning distinct writing patterns and applying them c
 
 All training data is **synthetically generated** to avoid privacy concerns with real CVs.
 
-### Evaluation Methodology
+---
 
-- **LLM-as-Judge**: Claude API scores outputs on 3 dimensions (1-5 scale)
-- **Metrics**: Style Fidelity, Factual Consistency, Quality
-- **Comparison**: Fine-tuned LoRA vs Base Model (zero-shot)
-- **Sample Size**: 25 examples (5 per style)
+## ⚠️ Known Limitations
 
-<details>
-<summary>⚠️ Known Limitations</summary>
+### Model Behavior
+- **Concise style** sometimes produces garbled output with broken formatting
+- **Playful style** can be inconsistent with emoji placement
+- **Short inputs** (<15 words) may cause hallucination — model trained on full CV sections
+- **Number drift** occasionally occurs (e.g., 40% → 45%) — mitigated by fact verification
 
+### Technical Constraints
+- **Cold start**: First request takes ~60s (model loading)
+- **Quantization**: 4-bit reduces precision slightly vs full precision
+- **Context window**: Best with 2-4 sentence inputs
+- **English only**: Model trained exclusively on English CVs
+
+### Evaluation Caveats
 - LLM-as-judge may have self-preference bias
 - Evaluation sample is relatively small (25 examples)
-- Some style transformations are subtle when input is already well-written
-- Model trained on English CVs only
-
-</details>
+- Style quality is inherently subjective
 
 ---
 
@@ -167,86 +203,77 @@ All training data is **synthetically generated** to avoid privacy concerns with 
 ```
 CameleonCV/
 ├── data/
-│   ├── train.jsonl          # 840 training examples
-│   ├── validation.jsonl     # 105 validation examples
-│   └── test.jsonl           # 105 test examples
+│   ├── train.jsonl              # 840 training examples
+│   ├── validation.jsonl         # 105 validation examples
+│   └── test.jsonl               # 105 test examples
 ├── notebooks/
-│   ├── training.ipynb       # LoRA fine-tuning notebook
-│   └── evaluation.ipynb     # Model evaluation notebook
+│   ├── training.ipynb           # LoRA fine-tuning notebook
+│   └── evaluation.ipynb         # Model evaluation notebook
 ├── outputs/
-│   ├── cameleon_lora_*/     # Saved LoRA adapter
-│   ├── evaluation_report.md # Evaluation results
-│   └── evaluation_chart.png # Results visualization
+│   ├── cameleon_lora_*/         # Saved LoRA adapter
+│   ├── evaluation_report.md     # Evaluation results
+│   └── evaluation_chart.png     # Results visualization
 ├── docs/
-│   ├── style-definitions.md # Detailed style specifications
-│   ├── dataset-schema.md    # Data format documentation
-│   └── architecture.md      # System design details
-└── cameleon-landing/        # React/Vite demo site
+│   ├── style-definitions.md     # Detailed style specifications
+│   ├── dataset-schema.md        # Data format documentation
+│   └── architecture.md          # System design details
+├── cameleon-landing/            # React/Vite demo site (Vercel)
+└── cameleon-modal/              # Modal API deployment
+    └── cameleon_api.py          # Two-stage pipeline
 ```
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Google Colab Pro (for A100 GPU access)
-- ~2 hours for full training + evaluation
+### Try the Demo
+Visit [cameleonai.eu](https://cameleonai.eu) and paste a CV section.
 
-### Training
+### Run Locally
 
-1. Upload training data to Google Drive:
+**Prerequisites:**
+- Modal account ([modal.com](https://modal.com))
+- Anthropic API key ([console.anthropic.com](https://console.anthropic.com))
+- Python 3.11+
+
+**Setup:**
+```bash
+# Clone repository
+git clone https://github.com/georgieslab/CameleonCV.git
+cd CameleonCV/cameleon-modal
+
+# Install Modal CLI
+pip install modal
+
+# Add Anthropic API key as Modal secret
+modal secret create anthropic-api-key ANTHROPIC_API_KEY=sk-ant-xxxxx
+
+# Deploy
+modal deploy cameleon_api.py
 ```
-My Drive/CameleonCV/data/
-  ├── train.jsonl
-  ├── validation.jsonl
-  └── test.jsonl
-```
 
-2. Open `training.ipynb` in Google Colab
+### Training (Colab)
 
+1. Upload training data to Google Drive
+2. Open `notebooks/training.ipynb` in Google Colab
 3. Select **A100 GPU** runtime
-
-4. Run all cells (~15 min training)
-
-### Inference
-
-```python
-from unsloth import FastLanguageModel
-
-# Load fine-tuned model
-model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name="path/to/cameleon_lora_adapter",
-    max_seq_length=2048,
-    load_in_4bit=True,
-)
-FastLanguageModel.for_inference(model)
-
-# Generate transformation
-prompt = """### TASK
-Rewrite the following CV section in confident style.
-
-### ORIGINAL CV SECTION
-Managed a team of 8 customer service representatives...
-
-### REWRITTEN SECTION
-"""
-
-inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
-outputs = model.generate(**inputs, max_new_tokens=256)
-print(tokenizer.decode(outputs[0]))
-```
+4. Run all cells (~15 min)
 
 ---
 
 ## 📈 Roadmap
 
 - [x] Dataset: 1,050 synthetic training examples
-- [x] Training: LoRA fine-tuning on LLaMA 3 8B
+- [x] Training: LoRA fine-tuning on LLaMA 3.1 8B
 - [x] Evaluation: LLM-as-judge comparison vs baseline
 - [x] Landing page: Live at [cameleonai.eu](https://cameleonai.eu)
-- [ ] Claude API integration for job relevance
-- [ ] Interactive demo interface
-- [ ] Hugging Face model release
+- [x] Model hosting: HuggingFace Hub + Modal deployment
+- [x] Claude API integration for job relevance
+- [x] Interactive demo with live API
+- [x] Fact verification layer
+- [ ] Improve Concise/Playful style quality (requires retraining)
+- [ ] Add more section type support
+- [ ] Multi-language support
 
 ---
 
@@ -280,6 +307,34 @@ Style quality is subjective and hard to capture with traditional metrics like BL
 
 </details>
 
+<details>
+<summary><b>Why fact verification?</b></summary>
+
+LLMs can "drift" numbers during rewriting (e.g., 40% → 45%). The fact verification layer extracts all numbers from the original input and checks they appear exactly in the output. If verification fails, we fall back to the styled-only version.
+
+</details>
+
+<details>
+<summary><b>Why prompt format matters?</b></summary>
+
+LoRA adapters are pattern-sensitive. The production prompt must match the training format exactly (`### Instruction / ### Input / ### Response`) or the adapter won't activate properly, causing the base model's verbose behavior to dominate.
+
+</details>
+
+---
+
+## 🎓 Interview Talking Points
+
+This project demonstrates:
+
+1. **ML Engineering**: LoRA fine-tuning, 4-bit quantization, prompt format alignment
+2. **System Design**: Two-stage pipeline separating learned behavior from reasoning
+3. **Evaluation Methodology**: LLM-as-judge with explicit limitations
+4. **Production Deployment**: Modal GPU hosting, Vercel frontend, HuggingFace model registry
+5. **Honest Engineering**: Documented limitations, fact verification fallbacks, realistic demo
+
+**Key insight:** The prompt format mismatch between training and inference was the hardest bug to diagnose — LoRA adapters are pattern detectors that fail silently when patterns don't match.
+
 ---
 
 ## 📚 References
@@ -287,6 +342,7 @@ Style quality is subjective and hard to capture with traditional metrics like BL
 - [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 - [Unsloth: Fast LLM Fine-tuning](https://github.com/unslothai/unsloth)
 - [LLaMA 3 Technical Report](https://ai.meta.com/blog/meta-llama-3/)
+- [Claude API Documentation](https://docs.anthropic.com)
 
 ---
 
@@ -298,6 +354,12 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 👤 Author
 
-**Georgie** — [LinkedIn](https://linkedin.com/in/yourprofile) | [Portfolio](https://yourportfolio.com)
+**Georgie** — [LinkedIn](https://linkedin.com/in/georgieslab) | [Email](mailto:georgslab@icloud.com)
 
 *Built as a portfolio project demonstrating ML engineering, prompt engineering, and product thinking.*
+
+---
+
+<p align="center">
+  <a href="https://cameleonai.eu">🦎 Try the Live Demo</a>
+</p>
